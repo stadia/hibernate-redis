@@ -11,7 +11,7 @@ import org.springframework.dao.annotation.PersistenceExceptionTranslationPostPro
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
+import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -135,7 +135,7 @@ public class JpaRedisConfiguration {
     }
 
     /**
-     * Hibernate 에외를 변환하는 {@link org.springframework.orm.hibernate4.HibernateExceptionTranslator} 를 Spring 의 ApplicationContext에 등록합니다.
+     * Hibernate 에외를 변환하는 {@link org.springframework.orm.hibernate3.HibernateExceptionTranslator} 를 Spring 의 ApplicationContext에 등록합니다.
      */
     // NOTE: 이거 꼭 정의해야 합니다.
     @Bean

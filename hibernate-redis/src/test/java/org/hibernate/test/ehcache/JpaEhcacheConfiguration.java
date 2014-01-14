@@ -1,7 +1,7 @@
 package org.hibernate.test.ehcache;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory;
+import org.hibernate.cache.SingletonEhCacheRegionFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.test.domain.Account;
 import org.hibernate.test.jpa.repository.EventRepository;
@@ -11,7 +11,7 @@ import org.springframework.dao.annotation.PersistenceExceptionTranslationPostPro
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
+import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -68,6 +68,7 @@ public class JpaEhcacheConfiguration {
         props.put(Environment.USE_SECOND_LEVEL_CACHE, true);
         props.put(Environment.USE_QUERY_CACHE, false);
         props.put(Environment.CACHE_REGION_FACTORY, SingletonEhCacheRegionFactory.class.getName());
+
         props.put(Environment.CACHE_PROVIDER_CONFIG, "classpath:ehcache.xml");
 
         return props;
@@ -133,7 +134,7 @@ public class JpaEhcacheConfiguration {
     }
 
     /**
-     * Hibernate 에외를 변환하는 {@link org.springframework.orm.hibernate4.HibernateExceptionTranslator} 를 Spring 의 ApplicationContext에 등록합니다.
+     * Hibernate 에외를 변환하는 {@link org.springframework.orm.hibernate3.HibernateExceptionTranslator} 를 Spring 의 ApplicationContext에 등록합니다.
      */
     // NOTE: 이거 꼭 정의해야 합니다.
     @Bean

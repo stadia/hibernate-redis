@@ -19,11 +19,9 @@ package org.hibernate.cache.redis.strategy;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.regions.RedisCollectionRegion;
 import org.hibernate.cache.redis.regions.RedisEntityRegion;
-import org.hibernate.cache.redis.regions.RedisNaturalIdRegion;
-import org.hibernate.cache.spi.access.AccessType;
-import org.hibernate.cache.spi.access.CollectionRegionAccessStrategy;
-import org.hibernate.cache.spi.access.EntityRegionAccessStrategy;
-import org.hibernate.cache.spi.access.NaturalIdRegionAccessStrategy;
+import org.hibernate.cache.access.AccessType;
+import org.hibernate.cache.access.CollectionRegionAccessStrategy;
+import org.hibernate.cache.access.EntityRegionAccessStrategy;
 
 /**
  * org.hibernate.cache.redis.strategy.RedisAccessStrategyFactoryImpl
@@ -38,22 +36,21 @@ public class RedisAccessStrategyFactoryImpl implements RedisAccessStrategyFactor
     public EntityRegionAccessStrategy createEntityRegionAccessStrategy(RedisEntityRegion entityRegion,
                                                                        AccessType accessType) {
         log.debug("create EntityRegionAccessStrategy. regionName=[{}], accessType=[{}]",
-                  entityRegion.getName(), accessType.getExternalName());
+                  entityRegion.getName(), accessType.getName());
 
-        switch (accessType) {
-            case READ_ONLY:
-                if (entityRegion.getCacheDataDescription().isMutable()) {
-                    log.warn("read-only cache configured for mutable entity regionName=[{}]", entityRegion.getName());
-                }
-                return new ReadOnlyRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
-            case READ_WRITE:
-                return new ReadWriteRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
-            case NONSTRICT_READ_WRITE:
-                return new NonStrictReadWriteRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
-            case TRANSACTIONAL:
-                return new TransactionalRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
-            default:
-                throw new IllegalArgumentException("unrecognized access strategy type [" + accessType + "]");
+        if (AccessType.READ_ONLY == accessType) {
+            if (entityRegion.getCacheDataDescription().isMutable()) {
+                log.warn("read-only cache configured for mutable entity regionName=[{}]", entityRegion.getName());
+            }
+            return new ReadOnlyRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
+        } else if (AccessType.READ_WRITE == accessType) {
+            return new ReadWriteRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
+        } else if (AccessType.NONSTRICT_READ_WRITE == accessType) {
+            return new NonStrictReadWriteRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
+        } else if (AccessType.TRANSACTIONAL == accessType) {
+            return new TransactionalRedisEntityRegionAccessStrategy(entityRegion, entityRegion.getSettings());
+        } else {
+            throw new IllegalArgumentException("unrecognized access strategy type [" + accessType + "]");
         }
     }
 
@@ -61,47 +58,21 @@ public class RedisAccessStrategyFactoryImpl implements RedisAccessStrategyFactor
     public CollectionRegionAccessStrategy createCollectionRegionAccessStrategy(RedisCollectionRegion collectionRegion,
                                                                                AccessType accessType) {
         log.debug("create CollectionRegionAccessStrategy. regionName=[{}], accessType=[{}]",
-                  collectionRegion.getName(), accessType.getExternalName());
+                  collectionRegion.getName(), accessType.getName());
 
-        switch (accessType) {
-            case READ_ONLY:
-                if (collectionRegion.getCacheDataDescription().isMutable()) {
-                    log.warn("read-only cache configured for mutable entity collectionRegionName=[{}]", collectionRegion.getName());
-                }
-                return new ReadOnlyRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
-            case READ_WRITE:
-                return new ReadWriteRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
-            case NONSTRICT_READ_WRITE:
-                return new NonStrictReadWriteRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
-            case TRANSACTIONAL:
-                return new TransactionalRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
-            default:
-                throw new IllegalArgumentException("unrecognized access strategy type [" + accessType + "]");
-        }
-    }
-
-    @Override
-    public NaturalIdRegionAccessStrategy createNaturalIdRegionAccessStrategy(RedisNaturalIdRegion naturalIdRegion,
-                                                                             AccessType accessType) {
-        log.debug("create NaturalIdRegionAccessStrategy. regionName=[{}], accessType=[{}]",
-                  naturalIdRegion.getName(), accessType.getExternalName());
-
-        switch (accessType) {
-            case READ_ONLY:
-                if (naturalIdRegion.getCacheDataDescription().isMutable()) {
-                    log.warn("read-only cache configured for mutable entity naturalIdRegion=[{}]", naturalIdRegion.getName());
-                }
-                return new ReadOnlyRedisNaturalIdRegionAccessStrategy(naturalIdRegion, naturalIdRegion.getSettings());
-            case READ_WRITE:
-                return new ReadWriteRedisNaturalIdRegionAccessStrategy(naturalIdRegion, naturalIdRegion.getSettings());
-            case NONSTRICT_READ_WRITE:
-                return new NonStrictReadWriteRedisNaturalIdRegionAccessStrategy(naturalIdRegion, naturalIdRegion.getSettings());
-            case TRANSACTIONAL:
-                return new TransactionalRedisNaturalIdRegionAccessStrategy(naturalIdRegion,
-                                                                           naturalIdRegion.getRedis(),
-                                                                           naturalIdRegion.getSettings());
-            default:
-                throw new IllegalArgumentException("unrecognized access strategy type [" + accessType + "]");
+        if (AccessType.READ_ONLY == accessType) {
+            if (collectionRegion.getCacheDataDescription().isMutable()) {
+                log.warn("read-only cache configured for mutable entity collectionRegionName=[{}]", collectionRegion.getName());
+            }
+            return new ReadOnlyRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
+        } else if (AccessType.READ_WRITE == accessType) {
+            return new ReadWriteRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
+        } else if (AccessType.NONSTRICT_READ_WRITE == accessType) {
+            return new NonStrictReadWriteRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
+        } else if (AccessType.TRANSACTIONAL == accessType) {
+            return new TransactionalRedisCollectionRegionAccessStrategy(collectionRegion, collectionRegion.getSettings());
+        } else {
+            throw new IllegalArgumentException("unrecognized access strategy type [" + accessType + "]");
         }
     }
 }

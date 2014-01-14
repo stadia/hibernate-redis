@@ -18,11 +18,9 @@ package org.hibernate.cache.redis.strategy;
 
 import org.hibernate.cache.redis.regions.RedisCollectionRegion;
 import org.hibernate.cache.redis.regions.RedisEntityRegion;
-import org.hibernate.cache.redis.regions.RedisNaturalIdRegion;
-import org.hibernate.cache.spi.access.AccessType;
-import org.hibernate.cache.spi.access.CollectionRegionAccessStrategy;
-import org.hibernate.cache.spi.access.EntityRegionAccessStrategy;
-import org.hibernate.cache.spi.access.NaturalIdRegionAccessStrategy;
+import org.hibernate.cache.access.AccessType;
+import org.hibernate.cache.access.CollectionRegionAccessStrategy;
+import org.hibernate.cache.access.EntityRegionAccessStrategy;
 
 /**
  * RedisAccessStrategyFactory
@@ -49,14 +47,5 @@ public interface RedisAccessStrategyFactory {
      */
     public CollectionRegionAccessStrategy createCollectionRegionAccessStrategy(RedisCollectionRegion collectionRegion,
                                                                                AccessType accessType);
-
-    /**
-     * Create {@link CollectionRegionAccessStrategy}
-     * for the input {@link org.hibernate.cache.redis.regions.RedisNaturalIdRegion} and {@link AccessType}
-     *
-     * @return the created {@link org.hibernate.cache.redis.regions.RedisNaturalIdRegion}
-     */
-    public NaturalIdRegionAccessStrategy createNaturalIdRegionAccessStrategy(RedisNaturalIdRegion naturalIdRegion,
-                                                                             AccessType accessType);
 
 }

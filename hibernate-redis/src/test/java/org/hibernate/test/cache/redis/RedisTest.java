@@ -1,17 +1,22 @@
 package org.hibernate.test.cache.redis;
 
+import com.carrotsearch.junitbenchmarks.BenchmarkRule;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.cache.redis.util.HibernateCacheUtil;
+import org.hibernate.cache.ReadWriteCache;
+import org.hibernate.cache.redis.RedisRegionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
-import org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory;
 import org.hibernate.stat.SecondLevelCacheStatistics;
 import org.hibernate.stat.Statistics;
-import org.hibernate.testing.junit4.BaseCoreFunctionalTestCase;
+import org.hibernate.testing.cache.BaseCacheRegionFactoryTestCase;
+import org.hibernate.testing.cache.Item;
+import org.hibernate.testing.cache.VersionedItem;
+import org.hibernate.transaction.JDBCTransactionFactory;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
 
 import java.util.Map;
 
@@ -24,17 +29,13 @@ import static org.fest.assertions.Assertions.assertThat;
  * @since 13. 4. 6. 오전 12:51
  */
 @Slf4j
-public abstract class RedisTest extends BaseCoreFunctionalTestCase {
+public abstract class RedisTest extends BaseCacheRegionFactoryTestCase {
 
-//    @Rule
-//    public TestRule benchmarkRun = new BenchmarkRule();
+    @Rule
+    public TestRule benchmarkRun = new BenchmarkRule();
 
-    @Override
-    protected Class<?>[] getAnnotatedClasses() {
-        return new Class<?>[]{
-                Item.class,
-                VersionedItem.class
-        };
+    public RedisTest(String x) {
+        super(x);
     }
 
     @Override
@@ -43,24 +44,33 @@ public abstract class RedisTest extends BaseCoreFunctionalTestCase {
     }
 
     @Override
-    protected void configure(Configuration cfg) {
+    public void configure(Configuration cfg) {
         super.configure(cfg);
-        cfg.setProperty(Environment.CACHE_REGION_PREFIX, "");
-        cfg.setProperty(Environment.USE_SECOND_LEVEL_CACHE, "true");
-        cfg.setProperty(Environment.GENERATE_STATISTICS, "true");
-        cfg.setProperty(Environment.USE_STRUCTURED_CACHE, "true");
-
-        cfg.setProperty(Environment.TRANSACTION_STRATEGY, JdbcTransactionFactory.class.getName());
-
-        configCache(cfg);
+        cfg.setProperty(Environment.TRANSACTION_STRATEGY, JDBCTransactionFactory.class.getName());
     }
 
-    protected abstract void configCache(final Configuration cfg);
+    @Override
+    protected Class getCacheRegionFactory() {
+        return RedisRegionFactory.class;
+    }
 
-    protected abstract Map getMapFromCacheEntry(final Object entry);
+    @Override
+    protected String getConfigResourceKey() {
+        return Environment.CACHE_PROVIDER_CONFIG;
+    }
 
-    @Test
-    public void queryCacheInvalidation() {
+    @Override
+    protected String getConfigResourceLocation() {
+        return "redis.properties";
+    }
+
+    @Override
+    protected boolean useTransactionManager() {
+        return false;
+    }
+
+    @Override
+    public void testQueryCacheInvalidation() {
         Session s = openSession();
         Transaction t = s.beginTransaction();
         Item i = new Item();
@@ -70,9 +80,8 @@ public abstract class RedisTest extends BaseCoreFunctionalTestCase {
         t.commit();
         s.clear();
 
-        String regionName = HibernateCacheUtil.getRegionName(sessionFactory(), Item.class);
         SecondLevelCacheStatistics slcs = s.getSessionFactory().getStatistics()
-                                           .getSecondLevelCacheStatistics(regionName);
+                .getSecondLevelCacheStatistics(Item.class.getName());
 
         assertThat(slcs.getElementCountInMemory()).isGreaterThan(0);
 
@@ -95,23 +104,20 @@ public abstract class RedisTest extends BaseCoreFunctionalTestCase {
         s.close();
     }
 
-    @Test
-    public void emptySecondLevelCacheEntry() throws Exception {
-        sessionFactory().getCache().evictEntityRegion(Item.class.getName());
-        Statistics stats = sessionFactory().getStatistics();
-
-        String regionName = HibernateCacheUtil.getRegionName(sessionFactory(), Item.class);
+    @Override
+    public void testEmptySecondLevelCacheEntry() throws Exception {
+        getSessions().getCache().evictEntityRegion(Item.class.getName());
+        Statistics stats = getSessions().getStatistics();
         stats.clear();
-        SecondLevelCacheStatistics statistics = stats.getSecondLevelCacheStatistics(regionName);
+        SecondLevelCacheStatistics statistics = stats.getSecondLevelCacheStatistics(Item.class.getName());
         Map cacheEntries = statistics.getEntries();
 
         assertThat(cacheEntries).isNotNull();
         assertThat(cacheEntries.size()).isEqualTo(0);
     }
 
-    @SuppressWarnings({ "UnnecessaryBoxing", "UnnecessaryUnboxing", "UnusedAssignment" })
-    @Test
-    public void staleWritesLeaveCacheConsistent() {
+    @Override
+    public void testStaleWritesLeaveCacheConsistent() {
         Session s = openSession();
         Transaction txn = s.beginTransaction();
         VersionedItem item = new VersionedItem();
@@ -124,7 +130,8 @@ public abstract class RedisTest extends BaseCoreFunctionalTestCase {
         Long initialVersion = item.getVersion();
 
         // manually revert the version property
-        item.setVersion(Long.valueOf(item.getVersion().longValue() - 1));
+        log.debug("==================== item version {} {}", item.getVersion().longValue(), item.getVersion().longValue() - 1);
+        item.setVersion(new Long(item.getVersion().longValue() - 1));
 
         try {
             s = openSession();
@@ -132,47 +139,40 @@ public abstract class RedisTest extends BaseCoreFunctionalTestCase {
             s.update(item);
             txn.commit();
             s.close();
-            Assert.fail("expected stale write to fail");
+            fail("expected stale write to fail");
         } catch (Throwable expected) {
+            // expected behavior here
             if (txn != null) {
                 try {
                     txn.rollback();
-                } catch (Throwable ignore) {}
+                } catch (Throwable ignore) {
+                }
             }
         } finally {
             if (s != null && s.isOpen()) {
                 try {
                     s.close();
-                } catch (Throwable ignore) {}
+                } catch (Throwable ignore) {
+                }
             }
         }
 
         // check the version value in the cache...
-        final String regionName = HibernateCacheUtil.getRegionName(sessionFactory(),
-                                                                   VersionedItem.class);
-        SecondLevelCacheStatistics slcs =
-                sessionFactory()
-                        .getStatistics()
-                        .getSecondLevelCacheStatistics(regionName);
+        SecondLevelCacheStatistics slcs = sfi().getStatistics().getSecondLevelCacheStatistics(VersionedItem.class.getName());
+        log.debug("====================== {}", slcs.getEntries().size());
 
-//        Map cacheEntries = slcs.getEntries();
-//        Object entry = cacheEntries.get(item.getId());
-//
-//        log.debug("entry=[{}]", entry);
-
+        Object entry = slcs.getEntries().get(item.getId());
         Long cachedVersionValue;
+        if (entry instanceof ReadWriteCache.Lock) {
+            //FIXME don't know what to test here
+            cachedVersionValue = new Long(((ReadWriteCache.Lock) entry).getUnlockTimestamp());
+        } else if (entry.getClass().getName().equals("org.hibernate.cache.redis.strategy.AbstractReadWriteRedisAccessStrategy$Lock")) {
+            //FIXME don't know what to test here, which is the same as issue as above...
+        } else {
+            cachedVersionValue = (Long) getMapFromCachedEntry(entry).get("_version");
+            assertEquals(initialVersion.longValue(), cachedVersionValue.longValue());
+        }
 
-//        final String lockStr = AbstractReadWriteRedisAccessStrategy.class.getName() + "$Lock";
-//        boolean isLock = entry.getClass()
-//                              .getName()
-//                              .equals(lockStr);
-//
-//        if (isLock) {
-//            //
-//        } else {
-//            cachedVersionValue = (Long) getMapFromCacheEntry(entry).get("_version");
-//            assertThat(cachedVersionValue.longValue()).isEqualTo(initialVersion.longValue());
-//        }
 
         // cleanup
         s = openSession();

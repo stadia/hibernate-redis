@@ -23,8 +23,8 @@ import org.hibernate.cache.redis.regions.*;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactoryImpl;
 import org.hibernate.cache.redis.util.Timestamper;
-import org.hibernate.cache.spi.*;
-import org.hibernate.cache.spi.access.AccessType;
+import org.hibernate.cache.*;
+import org.hibernate.cache.access.AccessType;
 import org.hibernate.cfg.Settings;
 
 import java.util.HashSet;
@@ -116,19 +116,6 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                      settings,
                                      metadata,
                                      properties);
-    }
-
-    @Override
-    public NaturalIdRegion buildNaturalIdRegion(String regionName,
-                                                Properties properties,
-                                                CacheDataDescription metadata) throws CacheException {
-        regionNames.add(regionName);
-        return new RedisNaturalIdRegion(accessStrategyFactory,
-                                        redis,
-                                        regionName,
-                                        settings,
-                                        metadata,
-                                        properties);
     }
 
     @Override

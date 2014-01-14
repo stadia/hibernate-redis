@@ -1,5 +1,6 @@
 package org.hibernate.test.cache.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.RedisRegionFactory;
 import org.hibernate.cache.redis.strategy.AbstractReadWriteRedisAccessStrategy;
 import org.hibernate.cfg.Configuration;
@@ -16,17 +17,19 @@ import java.util.Map;
  */
 public class RedisRegionFactoryImplTest extends RedisTest {
 
+    public RedisRegionFactoryImplTest(final String string) {super(string);}
+
     @Override
     protected void configCache(Configuration cfg) {
         cfg.setProperty(Environment.CACHE_REGION_FACTORY, RedisRegionFactory.class.getName());
-        cfg.setProperty(Environment.CACHE_PROVIDER_CONFIG, "hibernate-redis.properties");
+        cfg.setProperty(Environment.CACHE_PROVIDER_CONFIG, "redis.properties");
     }
 
     private static final String ABSTRACT_READ_WRITE_REDIS_ACCESS_STRATEGY_CLASS_NAME =
             AbstractReadWriteRedisAccessStrategy.class.getName();
 
     @Override
-    protected Map getMapFromCacheEntry(final Object entry) {
+    protected Map getMapFromCachedEntry(final Object entry) {
         final Map map;
         if (entry.getClass()
                  .getName()
@@ -40,7 +43,6 @@ public class RedisRegionFactoryImplTest extends RedisTest {
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-
         } else {
             map = (Map) entry;
         }

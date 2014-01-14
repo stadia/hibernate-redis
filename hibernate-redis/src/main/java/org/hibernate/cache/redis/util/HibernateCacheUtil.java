@@ -1,7 +1,7 @@
 package org.hibernate.cache.redis.util;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.internal.SessionFactoryImpl;
+import org.hibernate.impl.SessionFactoryImpl;
 import org.hibernate.persister.entity.EntityPersister;
 
 /**

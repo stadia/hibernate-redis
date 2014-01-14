@@ -21,6 +21,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class VersionedItem implements Serializable {
+    /**
 
     private static final long serialVersionUID = -1799457963599978471L;
 
@@ -34,4 +35,5 @@ public class VersionedItem implements Serializable {
     private String name;
 
     private String description;
+    **/
 }

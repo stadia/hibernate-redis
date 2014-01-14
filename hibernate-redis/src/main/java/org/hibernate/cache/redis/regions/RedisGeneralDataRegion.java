@@ -19,7 +19,7 @@ package org.hibernate.cache.redis.regions;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
-import org.hibernate.cache.spi.GeneralDataRegion;
+import org.hibernate.cache.GeneralDataRegion;
 
 import java.util.Properties;
 

@@ -17,7 +17,7 @@
 
     <properties>
         <jdk.version>1.6</jdk.version>
-        <hibernate.version>4.2.8.Final</hibernate.version>
+        <hibernate.version>3.6.10.Final</hibernate.version>
         <springframework.version>3.2.5.RELEASE</springframework.version>
         <querydsl.version>3.2.4</querydsl.version>
 

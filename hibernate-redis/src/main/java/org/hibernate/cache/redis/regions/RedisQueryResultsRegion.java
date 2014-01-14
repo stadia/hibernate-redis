@@ -18,7 +18,7 @@ package org.hibernate.cache.redis.regions;
 
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
-import org.hibernate.cache.spi.QueryResultsRegion;
+import org.hibernate.cache.QueryResultsRegion;
 
 import java.util.Properties;
 

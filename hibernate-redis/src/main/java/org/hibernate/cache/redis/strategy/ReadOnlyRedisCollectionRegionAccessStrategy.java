@@ -18,9 +18,9 @@ package org.hibernate.cache.redis.strategy;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.regions.RedisCollectionRegion;
-import org.hibernate.cache.spi.CollectionRegion;
-import org.hibernate.cache.spi.access.CollectionRegionAccessStrategy;
-import org.hibernate.cache.spi.access.SoftLock;
+import org.hibernate.cache.CollectionRegion;
+import org.hibernate.cache.access.CollectionRegionAccessStrategy;
+import org.hibernate.cache.access.SoftLock;
 import org.hibernate.cfg.Settings;
 
 /**

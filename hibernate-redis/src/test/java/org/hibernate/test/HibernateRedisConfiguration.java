@@ -4,20 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import org.hibernate.cache.redis.SingletonRedisRegionFactory;
 import org.hibernate.cfg.Environment;
-import org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory;
 import org.hibernate.test.domain.Account;
+import org.hibernate.transaction.JDBCTransactionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
+import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -58,7 +57,7 @@ public class HibernateRedisConfiguration {
 
         props.setProperty(Environment.GENERATE_STATISTICS, "false");
         props.setProperty(Environment.USE_STRUCTURED_CACHE, "true");
-        props.setProperty(Environment.TRANSACTION_STRATEGY, JdbcTransactionFactory.class.getName());
+        props.setProperty(Environment.TRANSACTION_STRATEGY, JDBCTransactionFactory.class.getName());
 
         return props;
     }
@@ -71,9 +70,9 @@ public class HibernateRedisConfiguration {
     }
 
     @Bean
-    public SessionFactory sessionFactory() throws IOException {
+    public SessionFactory sessionFactory() throws Exception {
 
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+        AnnotationSessionFactoryBean factoryBean = new AnnotationSessionFactoryBean();
         factoryBean.setPackagesToScan(getMappedPackageNames());
         factoryBean.setDataSource(dataSource());
         factoryBean.setHibernateProperties(hibernateProperties());
@@ -84,7 +83,7 @@ public class HibernateRedisConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager() throws IOException {
+    public PlatformTransactionManager transactionManager() throws Exception {
         return new HibernateTransactionManager(sessionFactory());
     }
 

@@ -3,8 +3,6 @@ package org.hibernate.examples.mapping.compositeId.idclass;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -20,10 +18,9 @@ import javax.persistence.IdClass;
  * @since 2013. 11. 29. 오후 4:35
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
 @IdClass(CarIdentifier.class)
-@DynamicInsert
-@DynamicUpdate
 @Getter
 @Setter
 public class IdClassCar extends AbstractValueObject {

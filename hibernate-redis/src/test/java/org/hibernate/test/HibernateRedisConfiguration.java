@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cache.redis.SingletonRedisRegionFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.test.domain.Account;
+import org.hibernate.testing.cache.VersionedItem;
 import org.hibernate.transaction.JDBCTransactionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,7 @@ public class HibernateRedisConfiguration {
 
     public String[] getMappedPackageNames() {
         return new String[] {
+                VersionedItem.class.getPackage().getName(),
                 Account.class.getPackage().getName()
         };
     }

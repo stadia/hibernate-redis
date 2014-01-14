@@ -20,10 +20,11 @@ import static org.fest.assertions.Assertions.assertThat;
  */
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { JpaHSqlConfiguration.class })
+@ContextConfiguration(classes = {JpaHSqlConfiguration.class})
 public class JpaMappingTest {
 
-    @Autowired EntityManagerFactory emf;
+    @Autowired
+    EntityManagerFactory emf;
 
     @Test
     public void mapping() throws Exception {

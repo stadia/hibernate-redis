@@ -2,8 +2,6 @@ package org.hibernate.examples.mapping.embeddable;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -17,8 +15,7 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 30. 오후 12:33
  */
 @Embeddable
-@DynamicInsert
-@DynamicUpdate
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class Address extends AbstractValueObject {

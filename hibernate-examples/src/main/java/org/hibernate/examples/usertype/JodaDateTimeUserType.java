@@ -1,7 +1,6 @@
 package org.hibernate.examples.usertype;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.usertype.UserType;
 import org.joda.time.DateTime;
@@ -54,15 +53,15 @@ public class JodaDateTimeUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
-        Object value = StandardBasicTypes.TIMESTAMP.nullSafeGet(rs, names[0], session, owner);
+    public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
+        Object value = StandardBasicTypes.TIMESTAMP.nullSafeGet(rs, names[0]);
         return asDateTime(value);
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         Date date = (value == null) ? null : ((DateTime) value).toDate();
-        StandardBasicTypes.TIMESTAMP.nullSafeSet(st, date, index, session);
+        StandardBasicTypes.TIMESTAMP.nullSafeSet(st, date, index);
     }
 
     @Override

@@ -4,8 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -21,9 +19,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "JoinedSubclass_Person")
 @org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Inheritance(strategy = InheritanceType.JOINED)
-@DynamicInsert
-@DynamicUpdate
 @Getter
 @Setter
 public abstract class Person extends AbstractHibernateEntity<Long> {

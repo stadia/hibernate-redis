@@ -7,7 +7,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.examples.hibernate.HibernateParameter;
 import org.hibernate.examples.utils.Serializers;
-import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.impl.CriteriaImpl;
 import org.springframework.data.domain.Pageable;
 
 /**

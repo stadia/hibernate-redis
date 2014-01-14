@@ -3,8 +3,6 @@ package org.hibernate.examples.mapping.associations.unidirectional;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -20,9 +18,8 @@ import javax.persistence.Id;
  * @since 2013. 11. 29. 오후 4:01
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
-@DynamicInsert
-@DynamicUpdate
 @Getter
 @Setter
 public class SnowFlake extends AbstractHibernateEntity<Long> {

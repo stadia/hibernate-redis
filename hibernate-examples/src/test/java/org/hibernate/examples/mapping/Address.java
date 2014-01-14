@@ -19,9 +19,14 @@ import javax.persistence.Embeddable;
 @Setter
 public class Address extends AbstractValueObject {
 
+    private static final long serialVersionUID = -6441062979081642183L;
+
     private String street;
+
     private String city;
+
     private String state;
+
     private String country;
 
     private String zipcode;
@@ -34,13 +39,10 @@ public class Address extends AbstractValueObject {
     @Override
     public ToStringHelper buildStringHelper() {
         return super.buildStringHelper()
-                    .add("zipcode", zipcode)
-                    .add("country", country)
-                    .add("state", state)
-                    .add("city", city)
-                    .add("street", street);
+                .add("zipcode", zipcode)
+                .add("country", country)
+                .add("state", state)
+                .add("city", city)
+                .add("street", street);
     }
-
-
-    private static final long serialVersionUID = -6441062979081642183L;
 }

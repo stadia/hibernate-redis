@@ -1,9 +1,9 @@
 package org.hibernate.examples.hibernate.listener;
 
-import org.hibernate.event.spi.PostInsertEvent;
-import org.hibernate.event.spi.PostInsertEventListener;
-import org.hibernate.event.spi.PostLoadEvent;
-import org.hibernate.event.spi.PostLoadEventListener;
+import org.hibernate.event.PostInsertEvent;
+import org.hibernate.event.PostInsertEventListener;
+import org.hibernate.event.PostLoadEvent;
+import org.hibernate.event.PostLoadEventListener;
 import org.hibernate.examples.model.PersistentObject;
 
 /**

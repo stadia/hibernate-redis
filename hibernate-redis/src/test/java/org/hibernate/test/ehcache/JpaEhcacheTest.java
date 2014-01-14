@@ -2,9 +2,9 @@ package org.hibernate.test.ehcache;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.test.domain.Event;
-import org.hibernate.test.domain.Item;
 import org.hibernate.test.jpa.repository.EventRepository;
 import org.hibernate.test.jpa.repository.ItemRepository;
+import org.hibernate.test.domain.Item;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

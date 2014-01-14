@@ -27,7 +27,7 @@ public class JpaMySqlConfiguration extends AbstractMySqlJpaConfiguration {
 
     @Override
     public String[] getMappedPackageNames() {
-        return new String[] {
+        return new String[]{
                 "org.hibernate.examples.mapping"
         };
     }

@@ -9,8 +9,8 @@ import org.hibernate.stat.SecondLevelCacheStatistics;
 import org.hibernate.stat.Statistics;
 import org.hibernate.test.AbstractHibernateTest;
 import org.hibernate.test.domain.Account;
-import org.hibernate.test.domain.Item;
 import org.hibernate.test.domain.Person;
+import org.hibernate.test.domain.Item;
 import org.junit.Before;
 import org.junit.Test;
 

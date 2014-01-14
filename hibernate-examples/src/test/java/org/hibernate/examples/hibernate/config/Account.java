@@ -24,6 +24,8 @@ import javax.persistence.Id;
 @Setter
 public class Account extends AbstractHibernateEntity<Long> {
 
+    private static final long serialVersionUID = 8633146002860863953L;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -41,9 +43,7 @@ public class Account extends AbstractHibernateEntity<Long> {
     @Override
     public ToStringHelper buildStringHelper() {
         return super.buildStringHelper()
-                    .add("id", id)
-                    .add("name", name);
+                .add("id", id)
+                .add("name", name);
     }
-
-    private static final long serialVersionUID = 8633146002860863953L;
 }

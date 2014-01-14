@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ConnectionReleaseMode;
 import org.hibernate.Interceptor;
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.common.annotationfactory.AnnotationFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.cfg.NamingStrategy;
 import org.hibernate.examples.hibernate.interceptor.PersistentObjectInterceptor;
@@ -13,9 +14,10 @@ import org.hibernate.examples.utils.DataSources;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
+import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -124,10 +126,10 @@ public abstract class AbstractHibernateConfiguration {
      * @return {@link org.hibernate.SessionFactory} instance.
      */
     @Bean
-    public SessionFactory sessionFactory() throws IOException {
+    public SessionFactory sessionFactory() throws Exception {
         log.info("SessionFactory Bean을 생성합니다...");
 
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+        AnnotationSessionFactoryBean factoryBean = new AnnotationSessionFactoryBean();
 
         String[] packagenames = getMappedPackageNames();
         if (packagenames != null && packagenames.length > 0) {
@@ -162,7 +164,7 @@ public abstract class AbstractHibernateConfiguration {
      * @return {@link HibernateTransactionManager} instance.
      */
     @Bean
-    public HibernateTransactionManager transactionManager() throws IOException {
+    public HibernateTransactionManager transactionManager() throws Exception {
         return new HibernateTransactionManager(sessionFactory());
     }
 

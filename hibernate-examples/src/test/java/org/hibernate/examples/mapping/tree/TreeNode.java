@@ -23,9 +23,8 @@ import java.util.Set;
  * @since 2013. 12. 3. 오후 6:42
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
-@DynamicInsert
-@DynamicUpdate
 @Getter
 @Setter
 public class TreeNode extends AbstractHibernateEntity<Long> implements HibernateTreeEntity<TreeNode> {

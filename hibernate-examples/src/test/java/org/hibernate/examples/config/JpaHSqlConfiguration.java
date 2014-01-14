@@ -23,7 +23,7 @@ public class JpaHSqlConfiguration extends AbstractHSqlJpaConfiguration {
 
     @Override
     public String[] getMappedPackageNames() {
-        return new String[] {
+        return new String[]{
                 "org.hibernate.examples.mapping"
         };
     }

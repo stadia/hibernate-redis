@@ -21,9 +21,8 @@ import java.util.Set;
  * @since 2013. 11. 29. 오후 2:06
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
-@DynamicInsert
-@DynamicUpdate
 @Getter
 @Setter
 public class OneToManyBiddingItem extends AbstractHibernateEntity<Long> {

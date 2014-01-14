@@ -16,6 +16,6 @@ public class HibernateConfig extends HibernateHSqlConfiguration {
 
     @Override
     public String[] getMappedPackageNames() {
-        return new String[] { Account.class.getPackage().getName() };
+        return new String[]{Account.class.getPackage().getName()};
     }
 }

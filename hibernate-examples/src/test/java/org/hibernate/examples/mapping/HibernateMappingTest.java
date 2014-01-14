@@ -19,7 +19,7 @@ import static org.fest.assertions.Assertions.assertThat;
  */
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateHSqlConfiguration.class })
+@ContextConfiguration(classes = {HibernateHSqlConfiguration.class})
 public class HibernateMappingTest {
 
     @Autowired

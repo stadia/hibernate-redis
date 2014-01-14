@@ -1,7 +1,6 @@
 package org.hibernate.examples.usertype;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.usertype.UserType;
 import org.joda.time.DateTime;
@@ -52,9 +51,9 @@ public class JodaDateTimeTZUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
-        Timestamp timestamp = (Timestamp) StandardBasicTypes.TIMESTAMP.nullSafeGet(rs, names[0], session, owner);
-        String timezone = (String) StandardBasicTypes.STRING.nullSafeGet(rs, names[1], session, owner);
+    public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
+        Timestamp timestamp = (Timestamp) StandardBasicTypes.TIMESTAMP.nullSafeGet(rs, names[0]);
+        String timezone = (String) StandardBasicTypes.STRING.nullSafeGet(rs, names[1]);
 
         if (timestamp == null || timezone == null)
             return null;
@@ -63,14 +62,14 @@ public class JodaDateTimeTZUserType implements UserType {
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         DateTime dt = (DateTime) value;
         if (dt == null) {
-            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, null, index, session);
-            StandardBasicTypes.STRING.nullSafeSet(st, null, index + 1, session);
+            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, null, index);
+            StandardBasicTypes.STRING.nullSafeSet(st, null, index + 1);
         } else {
-            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, dt.toDate(), index, session);
-            StandardBasicTypes.STRING.nullSafeSet(st, dt.getZone().getID(), index + 1, session);
+            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, dt.toDate(), index);
+            StandardBasicTypes.STRING.nullSafeSet(st, dt.getZone().getID(), index + 1);
         }
     }
 

@@ -30,7 +30,6 @@ public interface RedisSerializer<T> {
 
     public Charset UTF_8 = Charset.forName("UTF-8");
 
-
     /**
      * Serialize Object
      */

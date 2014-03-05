@@ -20,7 +20,7 @@ import javax.persistence.Id;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class JoinAddressEntity extends AbstractHibernateEntity<Long> {
@@ -42,9 +42,9 @@ public class JoinAddressEntity extends AbstractHibernateEntity<Long> {
     @Override
     public ToStringHelper buildStringHelper() {
         return super.buildStringHelper()
-                    .add("street", street)
-                    .add("city", city)
-                    .add("zipcode", zipcode);
+                .add("street", street)
+                .add("city", city)
+                .add("zipcode", zipcode);
     }
 
     private static final long serialVersionUID = 6610359502465293056L;

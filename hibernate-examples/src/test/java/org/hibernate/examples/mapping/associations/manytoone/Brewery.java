@@ -21,7 +21,7 @@ import java.util.Set;
  * @since 2013. 11. 29. 오전 9:40
  */
 @Entity
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class Brewery extends AbstractHibernateEntity<Long> {

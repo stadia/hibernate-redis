@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity(name = "JoinedSubclass_Customer")
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class Customer extends Person {

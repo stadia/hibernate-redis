@@ -32,8 +32,9 @@ import java.util.Properties;
 @Slf4j
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = { EventRepository.class })
+@EnableJpaRepositories(basePackageClasses = {EventRepository.class})
 public class JpaEhcacheConfiguration {
+
     /**
      * JPA EntityManager가 사용할 Database 명
      */
@@ -59,7 +60,7 @@ public class JpaEhcacheConfiguration {
         Properties props = new Properties();
 
         props.put(Environment.FORMAT_SQL, "true");
-        props.put(Environment.HBM2DDL_AUTO, "create-drop");
+        props.put(Environment.HBM2DDL_AUTO, "create");
         props.put(Environment.SHOW_SQL, "true");
 
         props.put(Environment.POOL_SIZE, 30);
@@ -77,7 +78,7 @@ public class JpaEhcacheConfiguration {
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.HSQL)
+                .setType(EmbeddedDatabaseType.H2)
                 .build();
     }
 
@@ -103,7 +104,6 @@ public class JpaEhcacheConfiguration {
 
         String[] packagenames = getMappedPackageNames();
         if (packagenames != null && packagenames.length > 0) {
-            log.debug("JPA용 entity를 scan합니다. packages=[{}]", packagenames);
             factoryBean.setPackagesToScan(packagenames);
         }
 

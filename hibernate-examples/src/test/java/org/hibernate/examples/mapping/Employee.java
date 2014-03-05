@@ -23,7 +23,7 @@ import java.util.Date;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq")
 @Getter
 @Setter
@@ -50,6 +50,11 @@ public class Employee extends AbstractHibernateEntity<Long> implements UpdatedTi
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
+    @Lob
+    private byte[] binaryData;
+
+    @Type(type = "org.hibernate.examples.usertype.JodaDateTimeUserType")
+    private DateTime hireDate;
     /**
      * UserType 예
      */

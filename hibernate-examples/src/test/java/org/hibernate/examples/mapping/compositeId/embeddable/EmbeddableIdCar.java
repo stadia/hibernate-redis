@@ -19,7 +19,7 @@ import javax.persistence.Entity;
  * @since 2013. 11. 29. 오후 4:41
  */
 @Entity
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class EmbeddableIdCar extends AbstractHibernateEntity<EmbeddableCarIdentifier> {

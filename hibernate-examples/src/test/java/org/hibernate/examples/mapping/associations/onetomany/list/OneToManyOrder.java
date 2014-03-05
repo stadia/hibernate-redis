@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2013. 11. 29. 오후 1:17
  */
 @Entity
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class OneToManyOrder extends AbstractHibernateEntity<Long> {

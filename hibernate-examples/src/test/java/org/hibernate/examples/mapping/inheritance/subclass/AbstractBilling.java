@@ -17,8 +17,7 @@ import javax.persistence.*;
  * @since 2013. 11. 30. 오후 2:11
  */
 @Entity(name = "Subclass_Billing")
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "BillingType", discriminatorType = DiscriminatorType.STRING)
 @Getter

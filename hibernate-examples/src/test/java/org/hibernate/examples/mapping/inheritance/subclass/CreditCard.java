@@ -16,8 +16,7 @@ import javax.persistence.*;
  */
 @Entity(name = "Subclass_CreditCard")
 @DiscriminatorValue(value = "CreditCard")
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 // SecondaryTable은 1:1 join 을 나타냅니다.
 @SecondaryTable(name = "Subclass_CreditCard_Card",
                 pkJoinColumns = @PrimaryKeyJoinColumn(name = "BillingId"))

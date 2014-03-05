@@ -19,7 +19,7 @@ import javax.persistence.Id;
  * @since 2013. 11. 29. 오후 1:04
  */
 @Entity
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class OneToManyAddress extends AbstractHibernateEntity<Long> {

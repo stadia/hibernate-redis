@@ -23,7 +23,7 @@ import java.util.Set;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class JoinUser extends AbstractHibernateEntity<Long> {
@@ -37,7 +37,7 @@ public class JoinUser extends AbstractHibernateEntity<Long> {
 
     // @OneToMany를 이용한 Mapping 은 Entity여야 합니다.
     // 1:N 테이블 매핑을 수행합니다.
-    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinTable(name = "JoinUserAddressMap")
     @MapKeyColumn(name = "nick")
     @ElementCollection(targetClass = JoinAddressEntity.class, fetch = FetchType.LAZY)
@@ -46,7 +46,7 @@ public class JoinUser extends AbstractHibernateEntity<Long> {
     // 1:N 테이블 매핑을 수행합니다. (단순 수형인 경우 간단하게 처리됩니다)
     @JoinTable(name = "JoinUserNicknameMap", joinColumns = @JoinColumn(name = "UserId"))
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @Cascade(value = { org.hibernate.annotations.CascadeType.ALL })
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
     private Set<String> nicknames = new HashSet<String>();
 
     @Override
@@ -57,7 +57,7 @@ public class JoinUser extends AbstractHibernateEntity<Long> {
     @Override
     public ToStringHelper buildStringHelper() {
         return super.buildStringHelper()
-                    .add("name", name);
+                .add("name", name);
     }
 
     private static final long serialVersionUID = -1086694041889310074L;

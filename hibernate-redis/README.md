@@ -1,9 +1,8 @@
 hibernate-redis
 ===============
 
-[hibernate][1] (4.2.x-Final) 2nd level cache using redis server.
-with [jedis][2]  2.2.1 or higher
-
+[hibernate][1] (3.6.x-Final) 2nd level cache using redis server.
+with [jedis][2]  2.4.1 or higher
 
 ### Usage
 

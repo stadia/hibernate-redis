@@ -26,7 +26,7 @@ import javax.persistence.*;
                                          @Index(name = "ix_embeddable_user_username",
                                                 columnNames = { "username", "password" })
                                  })
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
 public class User extends AbstractHibernateEntity<Long> {
@@ -69,7 +69,7 @@ public class User extends AbstractHibernateEntity<Long> {
             {
                     @AttributeOverride(name = "street", column = @Column(name = "HomeStreet", length = 128)),
                     @AttributeOverride(name = "zipcode", column = @Column(name = "HomeZipCode", length = 24)),
-                    @AttributeOverride(name = "city", column = @Column(name = "HomeCity", length = 128)),
+                    @AttributeOverride(name = "city", column = @Column(name = "HomeCity", length = 128))
             }
     )
     private Address homeAddress = new Address();
@@ -79,7 +79,7 @@ public class User extends AbstractHibernateEntity<Long> {
             {
                     @AttributeOverride(name = "street", column = @Column(name = "OfficeStreet", length = 128)),
                     @AttributeOverride(name = "zipcode", column = @Column(name = "OfficeZipCode", length = 24)),
-                    @AttributeOverride(name = "city", column = @Column(name = "OfficeCity", length = 128)),
+                    @AttributeOverride(name = "city", column = @Column(name = "OfficeCity", length = 128))
             }
     )
     private Address officeAddress = new Address();

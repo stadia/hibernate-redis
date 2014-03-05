@@ -32,7 +32,7 @@ import java.util.Properties;
 @Slf4j
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = { EventRepository.class })
+@EnableJpaRepositories(basePackageClasses = {EventRepository.class})
 public class JpaRedisConfiguration {
 
     /**
@@ -46,7 +46,7 @@ public class JpaRedisConfiguration {
      * 매핑할 엔티티 클래스가 정의된 package name 의 배열
      */
     public String[] getMappedPackageNames() {
-        return new String[] {
+        return new String[]{
                 Account.class.getPackage().getName()
         };
     }
@@ -60,7 +60,7 @@ public class JpaRedisConfiguration {
         Properties props = new Properties();
 
         props.put(Environment.FORMAT_SQL, "true");
-        props.put(Environment.HBM2DDL_AUTO, "create-drop");
+        props.put(Environment.HBM2DDL_AUTO, "create");
         props.put(Environment.SHOW_SQL, "true");
 
         props.put(Environment.POOL_SIZE, 30);
@@ -78,7 +78,7 @@ public class JpaRedisConfiguration {
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.HSQL)
+                .setType(EmbeddedDatabaseType.H2)
                 .build();
     }
 

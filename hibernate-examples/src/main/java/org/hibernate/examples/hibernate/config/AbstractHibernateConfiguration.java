@@ -12,7 +12,6 @@ import org.hibernate.examples.hibernate.repository.HibernateDao;
 import org.hibernate.examples.hibernate.repository.HibernateDaoImpl;
 import org.hibernate.examples.utils.DataSources;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
@@ -30,8 +29,6 @@ import java.util.Properties;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 9:54
  */
-@Configuration
-@EnableTransactionManagement
 @Slf4j
 public abstract class AbstractHibernateConfiguration {
 

@@ -18,8 +18,7 @@ import javax.persistence.IdClass;
  * @since 2013. 11. 29. 오후 4:35
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-@org.hibernate.annotations.Cache(region = "examples", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @IdClass(CarIdentifier.class)
 @Getter
 @Setter

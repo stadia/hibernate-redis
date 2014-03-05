@@ -1,7 +1,7 @@
 package org.hibernate.examples.model
 
-import java.beans.Transient
 import org.hibernate.examples.utils.ToStringHelper
+import javax.persistence.Transient
 
 /**
  * kr.debop4s.data.model.PersistentObject

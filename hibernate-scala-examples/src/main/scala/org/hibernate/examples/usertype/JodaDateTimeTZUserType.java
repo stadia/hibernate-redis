@@ -1,7 +1,8 @@
 package org.hibernate.examples.usertype;
 
+import com.google.common.base.Objects;
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.SessionImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.usertype.UserType;
 import org.joda.time.DateTime;
@@ -9,7 +10,6 @@ import org.joda.time.DateTimeZone;
 
 import java.io.Serializable;
 import java.sql.*;
-import java.util.Objects;
 
 /**
  * Joda-Time 의 DateTime의 정보를 시각과 {@link org.joda.time.DateTimeZone} 정보로 분리하여 저장하도록 합니다.
@@ -43,7 +43,7 @@ public class JodaDateTimeTZUserType implements UserType {
 
     @Override
     public boolean equals(Object x, Object y) throws HibernateException {
-        return Objects.equals(x, y);
+        return Objects.equal(x, y);
     }
 
     @Override
@@ -52,9 +52,9 @@ public class JodaDateTimeTZUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
-        Timestamp timestamp = (Timestamp) StandardBasicTypes.TIMESTAMP.nullSafeGet(rs, names[0], session, owner);
-        String timezone = (String) StandardBasicTypes.STRING.nullSafeGet(rs, names[1], session, owner);
+    public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
+        Timestamp timestamp = (Timestamp) StandardBasicTypes.TIMESTAMP.nullSafeGet(rs, names[0]);
+        String timezone = (String) StandardBasicTypes.STRING.nullSafeGet(rs, names[1]);
 
         if (timestamp == null || timezone == null)
             return null;
@@ -63,14 +63,14 @@ public class JodaDateTimeTZUserType implements UserType {
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         DateTime dt = (DateTime) value;
         if (dt == null) {
-            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, null, index, session);
-            StandardBasicTypes.STRING.nullSafeSet(st, null, index + 1, session);
+            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, null, index);
+            StandardBasicTypes.STRING.nullSafeSet(st, null, index + 1);
         } else {
-            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, dt.toDate(), index, session);
-            StandardBasicTypes.STRING.nullSafeSet(st, dt.getZone().getID(), index + 1, session);
+            StandardBasicTypes.TIMESTAMP.nullSafeSet(st, dt.toDate(), index);
+            StandardBasicTypes.STRING.nullSafeSet(st, dt.getZone().getID(), index + 1);
         }
     }
 

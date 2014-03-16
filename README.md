@@ -14,15 +14,16 @@ if multiple entity cached in same region, can't figure out wanted entity.
 ### Maven Repository
 
 add dependency
-
+```xml
         <dependency>
             <groupId>com.github.stadia</groupId>
             <artifactId>hibernate-redis</artifactId>
             <version>1.5.7</version>
         </dependency>
+```
 
 add repository
-
+```xml
     <repositories>
         <repository>
             <id>stadia-snapshots</id>
@@ -33,12 +34,13 @@ add repository
             <url>https://github.com/stadia/stadia-maven-repo/raw/master/releases</url>
         </repository>
     </repositories>
-
+```
 
 ### setup hibernate configuration
 
 setup hibernate configuration.
 
+```java
     // Secondary Cache
     props.put(Environment.USE_SECOND_LEVEL_CACHE, true);
     props.put(Environment.USE_QUERY_CACHE, true);
@@ -53,6 +55,7 @@ setup hibernate configuration.
 
     // configuration for Redis that used by hibernate
     props.put(Environment.CACHE_PROVIDER_CONFIG, "hibernate-redis.properties");
+```
 
 also same configuration for using Spring Framework or [Spring Data JPA][4]
 
@@ -60,6 +63,7 @@ also same configuration for using Spring Framework or [Spring Data JPA][4]
 
 sample for hibernate-redis.properties
 
+```ini
      ##########################################################
      #
      # properities for hibernate-redis
@@ -85,12 +89,13 @@ sample for hibernate-redis.properties
 
      # expiry of hibernate.account region (seconds) // hibernate is prefix, region name is account
      redis.expiryInSeconds.hibernate.account=1200
-
+```
 
 ### Setup hibernate entity to use cache
 
 add @org.hibernate.annotations.Cache annotation to Entity class like this
 
+```java
 	@Entity
 	@Cache(region="common", usage = CacheConcurrencyStrategy.READ_WRITE)  // or @Cacheable(true) for JPA
 	@Getter
@@ -106,7 +111,7 @@ add @org.hibernate.annotations.Cache annotation to Entity class like this
 
     		private static final long serialVersionUID = -281066218676472922L;
 	}
-
+```
 
 ### How to monitor hibernate-cache is running
 

@@ -3,7 +3,6 @@ package org.hibernate.test.cache.redis;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.cache.redis.RedisRegionFactory;
 import org.hibernate.cache.redis.util.HibernateCacheUtil;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
@@ -13,6 +12,8 @@ import org.hibernate.testing.cache.BaseCacheRegionFactoryTestCase;
 import org.hibernate.testing.cache.Item;
 import org.hibernate.testing.cache.VersionedItem;
 import org.hibernate.transaction.JDBCTransactionFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Map;
 
@@ -27,8 +28,8 @@ import static org.fest.assertions.Assertions.assertThat;
 @Slf4j
 public abstract class RedisTest extends BaseCacheRegionFactoryTestCase {
 
-    //@Rule
-    //public TestRule benchmarkRun = new BenchmarkRule();
+//    @Rule
+//    public TestRule benchmarkRun = new BenchmarkRule();
 
     public RedisTest(String x) {
         super(x);
@@ -42,8 +43,14 @@ public abstract class RedisTest extends BaseCacheRegionFactoryTestCase {
     @Override
     public void configure(Configuration cfg) {
         super.configure(cfg);
+        cfg.setProperty(Environment.CACHE_REGION_PREFIX, "");
+        cfg.setProperty(Environment.USE_SECOND_LEVEL_CACHE, "true");
+        cfg.setProperty(Environment.GENERATE_STATISTICS, "true");
+        cfg.setProperty(Environment.USE_STRUCTURED_CACHE, "true");
 
         cfg.setProperty(Environment.TRANSACTION_STRATEGY, JDBCTransactionFactory.class.getName());
+
+        configCache(cfg);
     }
 
     @Override
@@ -118,9 +125,8 @@ public abstract class RedisTest extends BaseCacheRegionFactoryTestCase {
             s.update(item);
             txn.commit();
             s.close();
-            fail("expected stale write to fail");
+            Assert.fail("expected stale write to fail");
         } catch (Throwable expected) {
-            // expected behavior here
             if (txn != null) {
                 try {
                     txn.rollback();
@@ -171,18 +177,13 @@ public abstract class RedisTest extends BaseCacheRegionFactoryTestCase {
     }
 
     @Override
-    protected Class getCacheRegionFactory() {
-        return RedisRegionFactory.class;
-    }
-
-    @Override
     protected String getConfigResourceKey() {
         return Environment.CACHE_PROVIDER_CONFIG;
     }
 
     @Override
     protected String getConfigResourceLocation() {
-        return "redis.properties";
+        return "hibernate-redis.properties";
     }
 
     @Override

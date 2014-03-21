@@ -20,8 +20,8 @@ import javax.persistence.Id;
  * @since 2013. 11. 29. 오후 3:36
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class Vehicle extends AbstractHibernateEntity<Long> {

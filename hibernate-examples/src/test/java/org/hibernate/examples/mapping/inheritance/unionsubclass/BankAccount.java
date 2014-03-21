@@ -16,8 +16,8 @@ import javax.persistence.Entity;
  * @since 2013. 12. 3. 오전 12:30
  */
 @Entity(name = "UnionSubsclass_BankAccount")
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class BankAccount extends AbstractBilling {

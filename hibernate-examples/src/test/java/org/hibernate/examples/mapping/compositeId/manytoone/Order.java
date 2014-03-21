@@ -24,8 +24,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "CompositeId_Order")
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class Order extends AbstractHibernateEntity<Long> {

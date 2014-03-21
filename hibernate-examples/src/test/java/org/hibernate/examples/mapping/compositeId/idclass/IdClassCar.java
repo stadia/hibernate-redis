@@ -20,6 +20,7 @@ import javax.persistence.IdClass;
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @IdClass(CarIdentifier.class)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class IdClassCar extends AbstractValueObject {

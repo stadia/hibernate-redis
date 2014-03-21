@@ -17,8 +17,8 @@ import javax.persistence.*;
  * @since 2013. 12. 3. 오후 1:56
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class EnumeratedEntity extends AbstractHibernateEntity<Long> {

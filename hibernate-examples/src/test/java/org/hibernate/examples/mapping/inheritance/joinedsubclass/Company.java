@@ -19,8 +19,8 @@ import javax.persistence.Id;
  * @since 2013. 11. 30. 오후 12:58
  */
 @Entity(name = "JoinedSubclass_Company")
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class Company extends AbstractHibernateEntity<Long> {

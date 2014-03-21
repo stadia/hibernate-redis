@@ -20,6 +20,7 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "BillingType", discriminatorType = DiscriminatorType.STRING)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public abstract class AbstractBilling extends AbstractHibernateEntity<Long> {

@@ -19,13 +19,11 @@ import javax.persistence.*;
  * @since 2013. 12. 3. 오후 9:08
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class JodaDateTimeEntity extends AbstractHibernateEntity<Long> {
-
-    private static final long serialVersionUID = -5195581340713775796L;
 
     @Id
     @GeneratedValue
@@ -40,24 +38,27 @@ public class JodaDateTimeEntity extends AbstractHibernateEntity<Long> {
     @Type(type = "org.hibernate.examples.usertype.JodaDateTimeUserType")
     private DateTime end;
 
+
     // 복합 수형인 경우 컬럼들을 명시해줘야 합니다.
     //
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "startTime", column = @Column(name = "rangeStart1")),
-            @AttributeOverride(name = "endTime", column = @Column(name = "rangeEnd1"))
-    })
+                                @AttributeOverride(name = "startTime", column = @Column(name = "rangeStart1")),
+                                @AttributeOverride(name = "endTime", column = @Column(name = "rangeEnd1"))
+                        })
     private DateTimeRange range1;
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "startTime", column = @Column(name = "rangeStart2")),
-            @AttributeOverride(name = "endTime", column = @Column(name = "rangeEnd2"))
-    })
+                                @AttributeOverride(name = "startTime", column = @Column(name = "rangeStart2")),
+                                @AttributeOverride(name = "endTime", column = @Column(name = "rangeEnd2"))
+                        })
     private DateTimeRange range2;
 
     @Override
     public int hashCode() {
         return HashTool.compute(start, end, range1, range2);
     }
+
+    private static final long serialVersionUID = -5195581340713775796L;
 }

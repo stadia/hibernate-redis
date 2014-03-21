@@ -21,8 +21,8 @@ import java.util.Set;
  * @since 2013. 11. 29. 오후 2:15
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class ProductItem extends AbstractHibernateEntity<Long> {

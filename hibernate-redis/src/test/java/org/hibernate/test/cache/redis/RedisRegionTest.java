@@ -1,15 +1,9 @@
 package org.hibernate.test.cache.redis;
 
 import lombok.extern.slf4j.Slf4j;
-<<<<<<< HEAD
-import org.hibernate.cache.redis.RedisRegionFactory;
-import org.hibernate.cache.redis.strategy.ItemValueExtractor;
-=======
 import org.hibernate.cache.redis.SingletonRedisRegionFactory;
 import org.hibernate.cache.redis.strategy.AbstractReadWriteRedisAccessStrategy;
->>>>>>> debop
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
 import org.hibernate.test.strategy.ItemValueExtractor;
 
 import java.util.Map;
@@ -23,18 +17,25 @@ import java.util.Map;
 @Slf4j
 public class RedisRegionTest extends RedisTest {
 
-    public RedisRegionTest(final String string) {super(string);}
-
     @Override
     protected Map getMapFromCachedEntry(final Object entry) {
         final Map map;
         if (entry.getClass()
-                .getName()
-                .equals("org.hibernate.cache.redis.strategy.AbstractReadWriteRedisAccessStrategy$Item")) {
+                 .getName()
+                 .equals(AbstractReadWriteRedisAccessStrategy.class.getName() + "$Item")) {
             map = ItemValueExtractor.getValue(entry);
         } else {
             map = (Map) entry;
         }
         return map;
+    }
+
+    public RedisRegionTest(String x) {
+        super(x);
+    }
+
+    @Override
+    protected Class getCacheRegionFactory() {
+        return SingletonRedisRegionFactory.class;
     }
 }

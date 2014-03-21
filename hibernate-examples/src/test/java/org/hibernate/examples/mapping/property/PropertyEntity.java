@@ -20,8 +20,8 @@ import javax.persistence.Lob;
  * @since 2013. 12. 7. 오전 11:05
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class PropertyEntity extends AbstractHibernateEntity<Long> {

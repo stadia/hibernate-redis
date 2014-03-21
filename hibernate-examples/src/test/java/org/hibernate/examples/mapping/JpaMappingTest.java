@@ -18,8 +18,7 @@ import static org.fest.assertions.Assertions.assertThat;
 @Slf4j
 public class JpaMappingTest extends AbstractJpaTest {
 
-    @Autowired
-    EntityManagerFactory emf;
+    @Autowired EntityManagerFactory emf;
 
     @Test
     public void mapping() throws Exception {

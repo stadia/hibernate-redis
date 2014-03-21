@@ -20,7 +20,7 @@ public class HibernateHSqlConfiguration extends AbstractHSqlHibernateConfigurati
 
     @Override
     public String[] getMappedPackageNames() {
-        return new String[]{
+        return new String[] {
                 "org.hibernate.examples.mapping"
         };
     }

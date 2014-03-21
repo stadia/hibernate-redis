@@ -20,6 +20,7 @@ import javax.persistence.*;
 // SecondaryTable은 1:1 join 을 나타냅니다.
 @SecondaryTable(name = "Subclass_CreditCard_Card",
                 pkJoinColumns = @PrimaryKeyJoinColumn(name = "BillingId"))
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class CreditCard extends AbstractBilling {

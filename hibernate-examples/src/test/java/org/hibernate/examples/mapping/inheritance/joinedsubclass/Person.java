@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Table(name = "JoinedSubclass_Person")
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Inheritance(strategy = InheritanceType.JOINED)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public abstract class Person extends AbstractHibernateEntity<Long> {

@@ -37,7 +37,6 @@ public class HibernateRedisConfiguration {
     public String[] getMappedPackageNames() {
         return new String[] {
                 VersionedItem.class.getPackage().getName(),
-
                 Account.class.getPackage().getName()
         };
     }

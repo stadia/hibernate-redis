@@ -69,7 +69,6 @@ public class JpaEhcacheConfiguration {
         props.put(Environment.USE_SECOND_LEVEL_CACHE, true);
         props.put(Environment.USE_QUERY_CACHE, false);
         props.put(Environment.CACHE_REGION_FACTORY, SingletonEhCacheRegionFactory.class.getName());
-
         props.put(Environment.CACHE_PROVIDER_CONFIG, "classpath:ehcache.xml");
 
         return props;

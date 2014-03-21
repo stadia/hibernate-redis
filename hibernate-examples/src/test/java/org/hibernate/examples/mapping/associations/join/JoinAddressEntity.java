@@ -19,8 +19,8 @@ import javax.persistence.Id;
  * @since 2013. 11. 28. 오후 11:13
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class JoinAddressEntity extends AbstractHibernateEntity<Long> {

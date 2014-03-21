@@ -16,7 +16,7 @@ if multiple entity cached in same region, can't figure out wanted entity.
 add dependency
 
         <dependency>
-            <groupId>com.github.debop</groupId>
+            <groupId>com.github.stadia</groupId>
             <artifactId>hibernate-redis</artifactId>
             <version>1.5.7</version>
         </dependency>
@@ -25,12 +25,12 @@ add repository
 
     <repositories>
         <repository>
-            <id>debop-snapshots</id>
-            <url>https://github.com/debop/debop-maven-repo/raw/master/snapshots</url>
+            <id>stadia-snapshots</id>
+            <url>https://github.com/stadia/stadia-maven-repo/raw/master/snapshots</url>
         </repository>
         <repository>
-            <id>debop-releases</id>
-            <url>https://github.com/debop/debop-maven-repo/raw/master/releases</url>
+            <id>stadia-releases</id>
+            <url>https://github.com/stadia/stadia-maven-repo/raw/master/releases</url>
         </repository>
     </repositories>
 
@@ -120,6 +120,6 @@ read [HibernateCacheTest.java][3] for more usage.
 
 [1]: http://www.hibernate.org/
 [2]: https://github.com/xetorthio/jedis
-[3]: https://github.com/debop/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
+[3]: https://github.com/stadia/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
 [4]: http://projects.spring.io/spring-data-jpa/
 [lombok]: http://www.projectlombok.org/

@@ -18,7 +18,6 @@ import javax.persistence.*;
  * @since 2013. 11. 30. 오후 12:33
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Table(name = "Embeddable_User")
 // index 에 순서를 주려면 hibernate의 Table annotation을 이용해야 합니다.
 @org.hibernate.annotations.Table(appliesTo = "Embeddable_User",
@@ -27,6 +26,7 @@ import javax.persistence.*;
                                                 columnNames = { "username", "password" })
                                  })
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
 public class User extends AbstractHibernateEntity<Long> {

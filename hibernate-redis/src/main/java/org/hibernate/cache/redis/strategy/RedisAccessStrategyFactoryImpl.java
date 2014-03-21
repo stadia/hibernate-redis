@@ -35,9 +35,6 @@ public class RedisAccessStrategyFactoryImpl implements RedisAccessStrategyFactor
     @Override
     public EntityRegionAccessStrategy createEntityRegionAccessStrategy(RedisEntityRegion entityRegion,
                                                                        AccessType accessType) {
-        log.debug("create EntityRegionAccessStrategy. regionName=[{}], accessType=[{}]",
-                  entityRegion.getName(), accessType.getName());
-
         if (AccessType.READ_ONLY == accessType) {
             if (entityRegion.getCacheDataDescription().isMutable()) {
                 log.warn("read-only cache configured for mutable entity regionName=[{}]", entityRegion.getName());
@@ -57,9 +54,6 @@ public class RedisAccessStrategyFactoryImpl implements RedisAccessStrategyFactor
     @Override
     public CollectionRegionAccessStrategy createCollectionRegionAccessStrategy(RedisCollectionRegion collectionRegion,
                                                                                AccessType accessType) {
-        log.debug("create CollectionRegionAccessStrategy. regionName=[{}], accessType=[{}]",
-                  collectionRegion.getName(), accessType.getName());
-
         if (AccessType.READ_ONLY == accessType) {
             if (collectionRegion.getCacheDataDescription().isMutable()) {
                 log.warn("read-only cache configured for mutable entity collectionRegionName=[{}]", collectionRegion.getName());

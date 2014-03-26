@@ -29,25 +29,15 @@ add repository
 ```xml
     <repositories>
         <repository>
-<<<<<<< HEAD
-            <id>stadia-snapshots</id>
-            <url>https://github.com/stadia/stadia-maven-repo/raw/master/snapshots</url>
-        </repository>
-        <repository>
             <id>stadia-releases</id>
             <url>https://github.com/stadia/stadia-maven-repo/raw/master/releases</url>
         </repository>
-=======
-            <id>debop-releases</id>
-            <url>https://github.com/debop/debop-maven-repo/raw/master/releases</url>
-        </repository>
         <!-- for snapshot -->
         <repository>
-            <id>debop-snapshots</id>
-            <url>https://github.com/debop/debop-maven-repo/raw/master/snapshots</url>
+            <id>stadia-snapshots</id>
+            <url>https://github.com/stadia/stadia-maven-repo/raw/master/snapshots</url>
         </repository>
 
->>>>>>> debop
     </repositories>
 ```
 
@@ -56,10 +46,7 @@ add repository
 setup hibernate configuration.
 
 ```java
-<<<<<<< HEAD
-=======
 
->>>>>>> debop
     // Secondary Cache
     props.put(Environment.USE_SECOND_LEVEL_CACHE, true);
     props.put(Environment.USE_QUERY_CACHE, true);
@@ -83,10 +70,7 @@ also same configuration for using Spring Framework or [Spring Data JPA][4]
 sample for hibernate-redis.properties
 
 ```ini
-<<<<<<< HEAD
-=======
 
->>>>>>> debop
      ##########################################################
      #
      # properities for hibernate-redis

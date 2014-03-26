@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>hibernate-redis-parent</artifactId>
-        <groupId>com.github.debop</groupId>
+        <groupId>com.github.stadia</groupId>
         <version>1.5.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,7 +18,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.debop</groupId>
+            <groupId>com.github.stadia</groupId>
             <artifactId>hibernate-examples</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

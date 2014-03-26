@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ConnectionReleaseMode;
 import org.hibernate.Interceptor;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.common.annotationfactory.AnnotationFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.cfg.NamingStrategy;
 import org.hibernate.examples.hibernate.interceptor.PersistentObjectInterceptor;
@@ -17,10 +16,8 @@ import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Properties;
 
 /**

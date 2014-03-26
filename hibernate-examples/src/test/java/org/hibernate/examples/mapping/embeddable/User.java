@@ -4,7 +4,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+<<<<<<< HEAD
 import org.hibernate.annotations.Index;
+=======
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+>>>>>>> debop
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -18,18 +23,15 @@ import javax.persistence.*;
  * @since 2013. 11. 30. 오후 12:33
  */
 @Entity
-@Table(name = "Embeddable_User")
+@Table(name = "Embeddable_User", indexes = {@Index(name = "ix_embeddable_user_username", columnList = "username, password"),
+@Index(name = "ix_user_email", columnList = "UserEmail")})
 // index 에 순서를 주려면 hibernate의 Table annotation을 이용해야 합니다.
-@org.hibernate.annotations.Table(appliesTo = "Embeddable_User",
-                                 indexes = {
-                                         @Index(name = "ix_embeddable_user_username",
-                                                columnNames = { "username", "password" })
-                                 })
+@org.hibernate.annotations.Table(appliesTo = "Embeddable_User")
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
 @Getter
 @Setter
-public class User extends AbstractHibernateEntity<Long> {
+class User extends AbstractHibernateEntity<Long> {
 
     protected User() {}
 
@@ -55,7 +57,6 @@ public class User extends AbstractHibernateEntity<Long> {
     private String password;
 
     @Column(name = "UserEmail")
-    @Index(name = "ix_user_email")
     private String email;
 
     @Column(name = "IS_ACTIVE", nullable = false)

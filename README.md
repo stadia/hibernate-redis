@@ -4,6 +4,9 @@ hibernate-redis
 [hibernate][1] (3.6.x-Final) 2nd level cache using redis server.
 with [jedis][2]  2.4.1 or higher
 
+reduce cache size by [Fast-Serialization][fst] and [snappy-java][snappy]. thanks!
+try serialization [benchmark][benchmark].
+
 ### NOTE
 
 Recommend use 3.6.10.Final
@@ -18,7 +21,7 @@ add dependency
         <dependency>
             <groupId>com.github.stadia</groupId>
             <artifactId>hibernate-redis</artifactId>
-            <version>1.5.7</version>
+            <version>1.5.9</version>
         </dependency>
 ```
 
@@ -26,6 +29,7 @@ add repository
 ```xml
     <repositories>
         <repository>
+<<<<<<< HEAD
             <id>stadia-snapshots</id>
             <url>https://github.com/stadia/stadia-maven-repo/raw/master/snapshots</url>
         </repository>
@@ -33,6 +37,17 @@ add repository
             <id>stadia-releases</id>
             <url>https://github.com/stadia/stadia-maven-repo/raw/master/releases</url>
         </repository>
+=======
+            <id>debop-releases</id>
+            <url>https://github.com/debop/debop-maven-repo/raw/master/releases</url>
+        </repository>
+        <!-- for snapshot -->
+        <repository>
+            <id>debop-snapshots</id>
+            <url>https://github.com/debop/debop-maven-repo/raw/master/snapshots</url>
+        </repository>
+
+>>>>>>> debop
     </repositories>
 ```
 
@@ -41,6 +56,10 @@ add repository
 setup hibernate configuration.
 
 ```java
+<<<<<<< HEAD
+=======
+
+>>>>>>> debop
     // Secondary Cache
     props.put(Environment.USE_SECOND_LEVEL_CACHE, true);
     props.put(Environment.USE_QUERY_CACHE, true);
@@ -64,6 +83,10 @@ also same configuration for using Spring Framework or [Spring Data JPA][4]
 sample for hibernate-redis.properties
 
 ```ini
+<<<<<<< HEAD
+=======
+
+>>>>>>> debop
      ##########################################################
      #
      # properities for hibernate-redis
@@ -128,3 +151,6 @@ read [HibernateCacheTest.java][3] for more usage.
 [3]: https://github.com/stadia/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
 [4]: http://projects.spring.io/spring-data-jpa/
 [lombok]: http://www.projectlombok.org/
+[fst]: https://github.com/RuedigerMoeller/fast-serialization
+[snappy]: https://github.com/xerial/snappy-java
+[benchmark]: https://github.com/debop/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/serializer/SerializerTest.java
